@@ -1,0 +1,466 @@
+{
+  "versions": [
+    {
+      "id": "ar_kehm",
+      "file": "data/ar_kehm.txt",
+      "size": 2240116
+    },
+    {
+      "id": "zh_cunpss-shen",
+      "file": "data/zh_cunpss-shen.txt",
+      "size": 1521736
+    },
+    {
+      "id": "zh_cnvs",
+      "file": "data/zh_cnvs.txt",
+      "size": 1632952
+    },
+    {
+      "id": "de_sch1951",
+      "file": "data/de_sch1951.txt",
+      "size": 1832316
+    },
+    {
+      "id": "el_fpb",
+      "file": "data/el_fpb.txt",
+      "size": 2138976
+    },
+    {
+      "id": "en_bbe",
+      "file": "data/en_bbe.txt",
+      "size": 1573604
+    },
+    {
+      "id": "en_kjv",
+      "file": "data/en_kjv.txt",
+      "size": 1624228
+    },
+    {
+      "id": "en_asv",
+      "file": "data/en_asv.txt",
+      "size": 1620104
+    },
+    {
+      "id": "en_amp",
+      "file": "data/en_amp.txt",
+      "size": 2092096
+    },
+    {
+      "id": "en_wbms",
+      "file": "data/en_wbms.txt",
+      "size": 1668988
+    },
+    {
+      "id": "en_jub",
+      "file": "data/en_jub.txt",
+      "size": 1630416
+    },
+    {
+      "id": "en_bsb",
+      "file": "data/en_bsb.txt",
+      "size": 1623760
+    },
+    {
+      "id": "en_csb",
+      "file": "data/en_csb.txt",
+      "size": 1621104
+    },
+    {
+      "id": "en_cev",
+      "file": "data/en_cev.txt",
+      "size": 1411508
+    },
+    {
+      "id": "en_darby",
+      "file": "data/en_darby.txt",
+      "size": 1610292
+    },
+    {
+      "id": "en_dra",
+      "file": "data/en_dra.txt",
+      "size": 1628276
+    },
+    {
+      "id": "en_esv",
+      "file": "data/en_esv.txt",
+      "size": 1601444
+    },
+    {
+      "id": "en_fbv",
+      "file": "data/en_fbv.txt",
+      "size": 1697324
+    },
+    {
+      "id": "en_gnv",
+      "file": "data/en_gnv.txt",
+      "size": 1657296
+    },
+    {
+      "id": "en_gnt",
+      "file": "data/en_gnt.txt",
+      "size": 1594348
+    },
+    {
+      "id": "en_kjva",
+      "file": "data/en_kjva.txt",
+      "size": 1624228
+    },
+    {
+      "id": "en_leb",
+      "file": "data/en_leb.txt",
+      "size": 1639276
+    },
+    {
+      "id": "en_lsv",
+      "file": "data/en_lsv.txt",
+      "size": 1611160
+    },
+    {
+      "id": "en_mbsb",
+      "file": "data/en_mbsb.txt",
+      "size": 1630784
+    },
+    {
+      "id": "en_nasb",
+      "file": "data/en_nasb.txt",
+      "size": 1676128
+    },
+    {
+      "id": "en_niv",
+      "file": "data/en_niv.txt",
+      "size": 1628108
+    },
+    {
+      "id": "en_nlt",
+      "file": "data/en_nlt.txt",
+      "size": 1730876
+    },
+    {
+      "id": "en_nmv",
+      "file": "data/en_nmv.txt",
+      "size": 1877724
+    },
+    {
+      "id": "en_nkjv",
+      "file": "data/en_nkjv.txt",
+      "size": 1642868
+    },
+    {
+      "id": "en_kjvcpb",
+      "file": "data/en_kjvcpb.txt",
+      "size": 1632192
+    },
+    {
+      "id": "en_t4t",
+      "file": "data/en_t4t.txt",
+      "size": 2212856
+    },
+    {
+      "id": "en_engrv",
+      "file": "data/en_engrv.txt",
+      "size": 1618008
+    },
+    {
+      "id": "en_web",
+      "file": "data/en_web.txt",
+      "size": 1619024
+    },
+    {
+      "id": "en_webu",
+      "file": "data/en_webu.txt",
+      "size": 1606492
+    },
+    {
+      "id": "en_webbe",
+      "file": "data/en_webbe.txt",
+      "size": 1621872
+    },
+    {
+      "id": "en_webus",
+      "file": "data/en_webus.txt",
+      "size": 1604360
+    },
+    {
+      "id": "en_wmb",
+      "file": "data/en_wmb.txt",
+      "size": 1621228
+    },
+    {
+      "id": "en_wmbbe",
+      "file": "data/en_wmbbe.txt",
+      "size": 1621964
+    },
+    {
+      "id": "en_ylt98",
+      "file": "data/en_ylt98.txt",
+      "size": 1629016
+    },
+    {
+      "id": "en_tojb2011",
+      "file": "data/en_tojb2011.txt",
+      "size": 1969152
+    },
+    {
+      "id": "eo_esp",
+      "file": "data/eo_esp.txt",
+      "size": 1557456
+    },
+    {
+      "id": "es_rvr1960",
+      "file": "data/es_rvr1960.txt",
+      "size": 1644692
+    },
+    {
+      "id": "fi_fb38",
+      "file": "data/fi_fb38.txt",
+      "size": 1778548
+    },
+    {
+      "id": "fr_apee",
+      "file": "data/fr_apee.txt",
+      "size": 1761572
+    },
+    {
+      "id": "ko_krv",
+      "file": "data/ko_krv.txt",
+      "size": 1651336
+    },
+    {
+      "id": "pt_aa",
+      "file": "data/pt_aa.txt",
+      "size": 1674052
+    },
+    {
+      "id": "pt_acf",
+      "file": "data/pt_acf.txt",
+      "size": 1643116
+    },
+    {
+      "id": "pt_ara",
+      "file": "data/pt_ara.txt",
+      "size": 1675828
+    },
+    {
+      "id": "pt_nvi",
+      "file": "data/pt_nvi.txt",
+      "size": 1696200
+    },
+    {
+      "id": "pt_arc",
+      "file": "data/pt_arc.txt",
+      "size": 1644432
+    },
+    {
+      "id": "pt_rc69",
+      "file": "data/pt_rc69.txt",
+      "size": 1648800
+    },
+    {
+      "id": "pt_a21",
+      "file": "data/pt_a21.txt",
+      "size": 1644048
+    },
+    {
+      "id": "pt_bpt09",
+      "file": "data/pt_bpt09.txt",
+      "size": 1781720
+    },
+    {
+      "id": "pt_avm",
+      "file": "data/pt_avm.txt",
+      "size": 1753156
+    },
+    {
+      "id": "pt_vfl",
+      "file": "data/pt_vfl.txt",
+      "size": 1768428
+    },
+    {
+      "id": "pt_pastoral",
+      "file": "data/pt_pastoral.txt",
+      "size": 1702560
+    },
+    {
+      "id": "pt_kja",
+      "file": "data/pt_kja.txt",
+      "size": 2058648
+    },
+    {
+      "id": "pt_bkj",
+      "file": "data/pt_bkj.txt",
+      "size": 1688380
+    },
+    {
+      "id": "pt_naa",
+      "file": "data/pt_naa.txt",
+      "size": 1709024
+    },
+    {
+      "id": "pt_nbv",
+      "file": "data/pt_nbv.txt",
+      "size": 1929640
+    },
+    {
+      "id": "pt_ntlh",
+      "file": "data/pt_ntlh.txt",
+      "size": 1727556
+    },
+    {
+      "id": "pt_nvi2011",
+      "file": "data/pt_nvi2011.txt",
+      "size": 1700852
+    },
+    {
+      "id": "pt_nvt",
+      "file": "data/pt_nvt.txt",
+      "size": 1719056
+    },
+    {
+      "id": "pt_ol",
+      "file": "data/pt_ol.txt",
+      "size": 1872424
+    },
+    {
+      "id": "pt_tb",
+      "file": "data/pt_tb.txt",
+      "size": 1660092
+    },
+    {
+      "id": "pt_matos",
+      "file": "data/pt_matos.txt",
+      "size": 1773596
+    },
+    {
+      "id": "ro_vdc",
+      "file": "data/ro_vdc.txt",
+      "size": 1743360
+    },
+    {
+      "id": "ru_synod",
+      "file": "data/ru_synod.txt",
+      "size": 1898352
+    },
+    {
+      "id": "vi_vie",
+      "file": "data/vi_vie.txt",
+      "size": 1796832
+    },
+    {
+      "id": "it_irb20",
+      "file": "data/it_irb20.txt",
+      "size": 1743448
+    },
+    {
+      "id": "pl_ubg",
+      "file": "data/pl_ubg.txt",
+      "size": 1727508
+    },
+    {
+      "id": "tr_ytc",
+      "file": "data/tr_ytc.txt",
+      "size": 1605396
+    },
+    {
+      "id": "sv_sfb15",
+      "file": "data/sv_sfb15.txt",
+      "size": 1632604
+    },
+    {
+      "id": "hu_hunk",
+      "file": "data/hu_hunk.txt",
+      "size": 1826940
+    },
+    {
+      "id": "cs_bkr",
+      "file": "data/cs_bkr.txt",
+      "size": 1775064
+    },
+    {
+      "id": "hi_irvhin",
+      "file": "data/hi_irvhin.txt",
+      "size": 2383248
+    },
+    {
+      "id": "ur_irvurd",
+      "file": "data/ur_irvurd.txt",
+      "size": 2145256
+    },
+    {
+      "id": "fa_opcb",
+      "file": "data/fa_opcb.txt",
+      "size": 1888588
+    },
+    {
+      "id": "th_kjvthai",
+      "file": "data/th_kjvthai.txt",
+      "size": 2392700
+    },
+    {
+      "id": "bn_irvben",
+      "file": "data/bn_irvben.txt",
+      "size": 2105164
+    },
+    {
+      "id": "pa_irvpun",
+      "file": "data/pa_irvpun.txt",
+      "size": 2131692
+    },
+    {
+      "id": "ta_irvtam",
+      "file": "data/ta_irvtam.txt",
+      "size": 2218240
+    },
+    {
+      "id": "te_irvtel",
+      "file": "data/te_irvtel.txt",
+      "size": 2211084
+    },
+    {
+      "id": "mr_irvmar",
+      "file": "data/mr_irvmar.txt",
+      "size": 2325728
+    },
+    {
+      "id": "sw_sruv",
+      "file": "data/sw_sruv.txt",
+      "size": 1582048
+    },
+    {
+      "id": "tl_abtag",
+      "file": "data/tl_abtag.txt",
+      "size": 1704864
+    },
+    {
+      "id": "sr_dk",
+      "file": "data/sr_dk.txt",
+      "size": 1766024
+    },
+    {
+      "id": "bg_vbg",
+      "file": "data/bg_vbg.txt",
+      "size": 1873504
+    },
+    {
+      "id": "be_bbl",
+      "file": "data/be_bbl.txt",
+      "size": 1944564
+    },
+    {
+      "id": "nb_bibel2011",
+      "file": "data/nb_bibel2011.txt",
+      "size": 1594912
+    },
+    {
+      "id": "en_nabre",
+      "file": "data/en_nabre.txt",
+      "size": 1936700
+    },
+    {
+      "id": "grc_sblgnt",
+      "file": "data/grc_sblgnt.txt",
+      "size": 552780
+    }
+  ],
+  "totalVersions": 92,
+  "extractedAt": "2026-10-08"
+}
