@@ -459,8 +459,18 @@
       "id": "grc_sblgnt",
       "file": "data/grc_sblgnt.txt",
       "size": 552780
+    },
+    {
+      "id": "nl_hsv",
+      "file": "data/nl_hsv.txt",
+      "size": 1774216
+    },
+    {
+      "id": "nl_sv",
+      "file": "data/nl_sv.txt",
+      "size": 1749208
     }
   ],
-  "totalVersions": 92,
+  "totalVersions": 94,
   "extractedAt": "2026-10-08"
 }
