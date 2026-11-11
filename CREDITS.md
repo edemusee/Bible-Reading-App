@@ -79,3 +79,22 @@ Converted by `tools/build-sword-commentary.py` (markup handled by `tools/comment
 public-domain CrossWire SWORD modules (https://www.crosswire.org/sword/modules/):
 `calvin` (CalvinCommentaries), `geneva` (Geneva), `mhc` (MHC), `mhcc` (MHCC), `burkitt` (Burkitt),
 `lightfoot` (Lightfoot), `tdavid` (TDavid), `jfb` (JFB), `barnes` (Barnes), `tsk` (TSK).
+
+Additional commentaries:
+- `gill`, `poole` — MySword modules by Costas Stergiou (theword.gr), converted by
+  `tools/build-mysword-commentary.py`. Gill's text is the Online Bible edition; that edition's
+  SWORD release carries a rights notice from Larry Pierce.
+- `trapp` — archive.org item `JohnTrappsBibleCommentaries` (one EPUB per book), converted by
+  `tools/build-trapp-commentary.py`.
+- `gouge` (A41670), `caryl` (A35389, A35438, A35439, A35473, A81199, A35535, A35537, A35538),
+  `durham_rev` (A37035), `durham_song` (A37032), `burroughs` (A30572, A77979, A30574, A30575),
+  `dickson_ps` (A35941, A35945, A35943), `dickson_matt` (A35949), `dickson_heb` (A20414) and
+  `owen_heb` chapters 6–10 (A53678) — EEBO-TCP transcriptions released under CC0
+  (https://github.com/textcreationpartnership), converted by `tools/build-tcp-commentary.py`.
+- `manton` (manton04.xml, manton05.xml) and `hodge_eph` (hodge/ephesians.xml) — CCEL ThML,
+  converted by `tools/build-ccel-commentary.py`.
+- `hodge_rom` (archive.org `commentaryon1873hodg`), `hodge_cor` (`expositionoffirs00hodg`,
+  `expositionofsecon00hodg`) and `owen_heb` chapters 1–5 (Goold edition, `worksofjohnowend0020owen`,
+  `worksofjohnowend0021owen`) — public-domain scans' OCR text, converted by
+  `tools/build-ocr-commentary.py`; expect occasional OCR errors.
+- `haldane` — godrules.net HTML pages, converted by `tools/build-haldane-commentary.py`.

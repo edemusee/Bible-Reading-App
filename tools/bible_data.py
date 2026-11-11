@@ -73,3 +73,10 @@ def write_dataset(books, abbreviation, merged=frozenset()):
         'bookIds': [book['id'] for book in dataset['books']],
         'chaptersByBook': {book['id']: len(book['chapters']) for book in dataset['books']},
     }
+
+
+def chapter_counts():
+    """{book_id: number of chapters} from the KJV data file."""
+    raw = (ROOT / 'data' / 'en_kjv.txt').read_text()
+    dataset = json.loads(gzip.decompress(base64.b64decode(raw)))
+    return {book['id']: len(book['chapters']) for book in dataset['books']}

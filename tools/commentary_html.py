@@ -182,6 +182,8 @@ class _Converter(HTMLParser):
             self.title = []
         elif tag in ('reference', 'scripref') and not closed:
             self.ref = {'attrs': attrs, 'text': []}
+        elif tag == 'a' and not closed and re.match(r'#[bc]\d+\.\d+', attrs.get('href') or ''):
+            self.ref = {'attrs': {'mybible': attrs['href']}, 'text': []}
         elif tag in INLINE:
             self._open(INLINE[tag])
         elif tag == 'hi':
@@ -229,7 +231,7 @@ class _Converter(HTMLParser):
             self.title = None
             if re.sub(r'<[^>]+>|\s', '', text):
                 self.blocks.append(f'<h4>{text}</h4>')
-        elif tag in ('reference', 'scripref') and self.ref is not None:
+        elif tag in ('reference', 'scripref', 'a') and self.ref is not None:
             ref, self.ref = self.ref, None
             self._emit(self._render_ref(ref))
         elif tag in INLINE:
@@ -270,6 +272,12 @@ class _Converter(HTMLParser):
         text = ''.join(ref['text'])
         plain = re.sub(r'<[^>]+>', '', text)
         attrs = ref['attrs']
+        if attrs.get('mybible'):
+            # MySword links: #b<book number>.<chapter>.<verse>[-...]
+            number, chapter, verse = re.match(r'#[bc](\d+)\.(\d+)\.?(\d*)', attrs['mybible']).groups()
+            if 1 <= int(number) <= 66:
+                return ref_link(BOOK_IDS[int(number) - 1], int(chapter), int(verse or 1), text)
+            return text
         target = attrs.get('osisref') or attrs.get('passage')
         if attrs.get('osisref'):
             resolved = link_osis_ref(attrs['osisref'])
