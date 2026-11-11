@@ -72,3 +72,10 @@ all marked redistributable by eBible.org; see `https://ebible.org/<id>/` for eac
 - `lt_tpv` — Tikinčiųjų paveldo vertimas (Lithuanian; eBible id `lit`)
 
 Many of these translations are under copyright held by their publishers.
+
+## Commentaries
+
+Converted by `tools/build-sword-commentary.py` (markup handled by `tools/commentary_html.py`) from
+public-domain CrossWire SWORD modules (https://www.crosswire.org/sword/modules/):
+`calvin` (CalvinCommentaries), `geneva` (Geneva), `mhc` (MHC), `mhcc` (MHCC), `burkitt` (Burkitt),
+`lightfoot` (Lightfoot), `tdavid` (TDavid), `jfb` (JFB), `barnes` (Barnes), `tsk` (TSK).

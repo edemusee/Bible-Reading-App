@@ -31,6 +31,14 @@ USFM_CODES = [
 ]
 
 
+def write_commentary_book(commentary_id, book_id, content):
+    """content: {"intro": html | None, "chapters": {"1": [[start, end, html], ...]}}."""
+    folder = ROOT / 'data' / 'commentaries' / commentary_id
+    folder.mkdir(parents=True, exist_ok=True)
+    raw = json.dumps(content, ensure_ascii=False, separators=(',', ':')).encode('utf-8')
+    (folder / f'{book_id}.txt').write_text(base64.b64encode(gzip.compress(raw, 9, mtime=0)).decode('ascii'))
+
+
 def write_dataset(books, abbreviation, merged=frozenset()):
     """books: {book_id: {chapter_number: {verse_number: text}}}.
 
