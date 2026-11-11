@@ -101,7 +101,7 @@ Additional commentaries:
 
 ## Classic Writings
 
-- 101 works by John Owen, Jonathan Edwards, Richard Baxter, John Bunyan, John Flavel, Thomas Watson,
+- 100 works by John Owen, Jonathan Edwards, Richard Baxter, John Bunyan, John Flavel, Thomas Watson,
   Stephen Charnock, Thomas Manton, Samuel Rutherford, William Guthrie, Thomas Boston, Thomas Shepard,
   John Howe, Matthew Mead, David Clarkson, John Cotton, Philip Doddridge, John Newton, George
   Whitefield, Samuel Hopkins and John Gill — public-domain ThML editions from the Christian Classics
