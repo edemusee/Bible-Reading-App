@@ -338,7 +338,7 @@
     {
       "id": "ru_synod",
       "file": "data/ru_synod.txt",
-      "size": 1898352
+      "size": 1952480
     },
     {
       "id": "vi_vie",
@@ -469,8 +469,218 @@
       "id": "nl_sv",
       "file": "data/nl_sv.txt",
       "size": 1749208
+    },
+    {
+      "id": "he_wlc",
+      "file": "data/he_wlc.txt",
+      "size": 1782848
+    },
+    {
+      "id": "la_vulgate",
+      "file": "data/la_vulgate.txt",
+      "size": 1623720
+    },
+    {
+      "id": "ja_shinkai",
+      "file": "data/ja_shinkai.txt",
+      "size": 1827072
+    },
+    {
+      "id": "ja_kougo",
+      "file": "data/ja_kougo.txt",
+      "size": 1775196
+    },
+    {
+      "id": "id_tb",
+      "file": "data/id_tb.txt",
+      "size": 1722536
+    },
+    {
+      "id": "uk_ohienko",
+      "file": "data/uk_ohienko.txt",
+      "size": 1981472
+    },
+    {
+      "id": "af_afr53",
+      "file": "data/af_afr53.txt",
+      "size": 1676420
+    },
+    {
+      "id": "ml_mov",
+      "file": "data/ml_mov.txt",
+      "size": 2098384
+    },
+    {
+      "id": "kn_kncl",
+      "file": "data/kn_kncl.txt",
+      "size": 2264892
+    },
+    {
+      "id": "ne_nnrv",
+      "file": "data/ne_nnrv.txt",
+      "size": 2209380
+    },
+    {
+      "id": "es_lbla",
+      "file": "data/es_lbla.txt",
+      "size": 1734008
+    },
+    {
+      "id": "es_ntv",
+      "file": "data/es_ntv.txt",
+      "size": 1881876
+    },
+    {
+      "id": "fr_lsg",
+      "file": "data/fr_lsg.txt",
+      "size": 1741976
+    },
+    {
+      "id": "fr_nbs",
+      "file": "data/fr_nbs.txt",
+      "size": 1756588
+    },
+    {
+      "id": "fr_darby",
+      "file": "data/fr_darby.txt",
+      "size": 1728932
+    },
+    {
+      "id": "fr_bds",
+      "file": "data/fr_bds.txt",
+      "size": 2008056
+    },
+    {
+      "id": "de_lut1912",
+      "file": "data/de_lut1912.txt",
+      "size": 1715412
+    },
+    {
+      "id": "de_sch2000",
+      "file": "data/de_sch2000.txt",
+      "size": 1861968
+    },
+    {
+      "id": "zh_cuv",
+      "file": "data/zh_cuv.txt",
+      "size": 1521172
+    },
+    {
+      "id": "yo_ycb",
+      "file": "data/yo_ycb.txt",
+      "size": 1810556
+    },
+    {
+      "id": "ig_icb",
+      "file": "data/ig_icb.txt",
+      "size": 1813680
+    },
+    {
+      "id": "ha_hcb",
+      "file": "data/ha_hcb.txt",
+      "size": 1578848
+    },
+    {
+      "id": "tw_akuapem",
+      "file": "data/tw_akuapem.txt",
+      "size": 1560132
+    },
+    {
+      "id": "tw_asante",
+      "file": "data/tw_asante.txt",
+      "size": 1589528
+    },
+    {
+      "id": "om_oncv",
+      "file": "data/om_oncv.txt",
+      "size": 1719688
+    },
+    {
+      "id": "sn_scb",
+      "file": "data/sn_scb.txt",
+      "size": 1609460
+    },
+    {
+      "id": "ny_ccl",
+      "file": "data/ny_ccl.txt",
+      "size": 1653144
+    },
+    {
+      "id": "lg_lcb",
+      "file": "data/lg_lcb.txt",
+      "size": 1708264
+    },
+    {
+      "id": "ki_kcb",
+      "file": "data/ki_kcb.txt",
+      "size": 1828492
+    },
+    {
+      "id": "ln_lcb",
+      "file": "data/ln_lcb.txt",
+      "size": 1587932
+    },
+    {
+      "id": "so_som",
+      "file": "data/so_som.txt",
+      "size": 1810156
+    },
+    {
+      "id": "am_amh",
+      "file": "data/am_amh.txt",
+      "size": 408860
+    },
+    {
+      "id": "gu_irvguj",
+      "file": "data/gu_irvguj.txt",
+      "size": 2199776
+    },
+    {
+      "id": "or_irvory",
+      "file": "data/or_irvory.txt",
+      "size": 2138896
+    },
+    {
+      "id": "as_irvasm",
+      "file": "data/as_irvasm.txt",
+      "size": 2270992
+    },
+    {
+      "id": "my_judson",
+      "file": "data/my_judson.txt",
+      "size": 2253128
+    },
+    {
+      "id": "ceb_apsd",
+      "file": "data/ceb_apsd.txt",
+      "size": 1674712
+    },
+    {
+      "id": "ilo_ulb",
+      "file": "data/ilo_ulb.txt",
+      "size": 1798764
+    },
+    {
+      "id": "ht_bib1985",
+      "file": "data/ht_bib1985.txt",
+      "size": 1693868
+    },
+    {
+      "id": "da_1931",
+      "file": "data/da_1931.txt",
+      "size": 1620160
+    },
+    {
+      "id": "hr_sb",
+      "file": "data/hr_sb.txt",
+      "size": 1659500
+    },
+    {
+      "id": "lt_tpv",
+      "file": "data/lt_tpv.txt",
+      "size": 141096
     }
   ],
-  "totalVersions": 94,
+  "totalVersions": 136,
   "extractedAt": "2026-10-08"
 }

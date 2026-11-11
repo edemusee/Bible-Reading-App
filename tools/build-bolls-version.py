@@ -8,29 +8,18 @@ then run:
 
 e.g. python3 tools/build-bolls-version.py HSV17.json nl_hsv
 
-Writes data/<abbreviation>.txt (base64(gzip(json))) and prints the manifest entry
-fields (bookIds, chaptersByBook) to add to MANIFEST in index.html.
+Writes data/<abbreviation>.txt and prints the manifest entry fields (bookIds,
+chaptersByBook) to add to MANIFEST in index.html.
 Only the 66 Protestant-canon books (bolls book numbers 1-66) are converted.
 """
 
-import base64
-import gzip
 import html
 import json
 import re
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
-
-BOOK_IDS = [
-    'gen', 'exod', 'lev', 'num', 'deut', 'josh', 'judg', 'ruth', '1sam', '2sam', '1kgs', '2kgs',
-    '1chr', '2chr', 'ezra', 'neh', 'esth', 'job', 'ps', 'prov', 'eccl', 'song', 'isa', 'jer',
-    'lam', 'ezek', 'dan', 'hos', 'joel', 'amos', 'obad', 'jonah', 'mic', 'nah', 'hab', 'zeph',
-    'hag', 'zech', 'mal', 'matt', 'mark', 'luke', 'john', 'acts', 'rom', '1cor', '2cor', 'gal',
-    'eph', 'phil', 'col', '1thess', '2thess', '1tim', '2tim', 'titus', 'phlm', 'heb', 'jas',
-    '1pet', '2pet', '1john', '2john', '3john', 'jude', 'rev',
-]
+from bible_data import BOOK_IDS, write_dataset
 
 
 def clean(text):
@@ -38,7 +27,13 @@ def clean(text):
     text = re.sub(r'<S>.*?</S>', '', text)       # Strong's numbers
     text = re.sub(r'<br\s*/?>', ' ', text)
     text = re.sub(r'<[^>]+>', '', text)          # <i>, <b>, ...
-    return re.sub(r'\s+', ' ', html.unescape(text)).strip()
+    text = html.unescape(text)
+    text = re.sub(r'\*?\[\d+(?::\d+)?[ab]?(?:-\d+[ab]?)?\]', '', text)  # footnote / source-verse numbers: [1], [31:55], *[3b]
+    text = re.sub(r'\{\s*\}|¶', '', text)        # empty braces, paragraph marks
+    text = re.sub(r'(?<!\S)[*+](?=\w)', '', text)   # Darby's *Dieu / +Dieu name markers
+    text = re.sub(r'\s+', ' ', text).strip()
+    # Chinese texts space out every character; join them back up.
+    return re.sub(r'(?<=[\u3000-\u303f\u4e00-\u9fff\uff00-\uffef{}─]) (?=[\u3000-\u303f\u4e00-\u9fff\uff00-\uffef{}─])', '', text).replace('{', '').replace('}', '')
 
 
 def main():
@@ -52,23 +47,7 @@ def main():
         chapters = books.setdefault(BOOK_IDS[row['book'] - 1], {})
         chapters.setdefault(row['chapter'], {})[row['verse']] = clean(row['text'])
 
-    dataset = {'books': []}
-    for book_id in BOOK_IDS:
-        if book_id not in books:
-            continue
-        chapters = []
-        for number in range(1, max(books[book_id]) + 1):
-            verses = books[book_id].get(number, {})
-            chapters.append([verses.get(v, '') for v in range(1, max(verses, default=0) + 1)])
-        dataset['books'].append({'id': book_id, 'chapters': chapters})
-
-    raw = json.dumps(dataset, ensure_ascii=False, separators=(',', ':')).encode('utf-8')
-    (ROOT / 'data' / f'{abbreviation}.txt').write_text(base64.b64encode(gzip.compress(raw, 9, mtime=0)).decode('ascii'))
-
-    print(json.dumps({
-        'bookIds': [b['id'] for b in dataset['books']],
-        'chaptersByBook': {b['id']: len(b['chapters']) for b in dataset['books']},
-    }, separators=(',', ':')))
+    print(json.dumps(write_dataset(books, abbreviation), separators=(',', ':')))
 
 
 if __name__ == '__main__':
