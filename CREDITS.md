@@ -98,3 +98,21 @@ Additional commentaries:
   `worksofjohnowend0021owen`) — public-domain scans' OCR text, converted by
   `tools/build-ocr-commentary.py`; expect occasional OCR errors.
 - `haldane` — godrules.net HTML pages, converted by `tools/build-haldane-commentary.py`.
+
+## Classic Writings
+
+- 101 works by John Owen, Jonathan Edwards, Richard Baxter, John Bunyan, John Flavel, Thomas Watson,
+  Stephen Charnock, Thomas Manton, Samuel Rutherford, William Guthrie, Thomas Boston, Thomas Shepard,
+  John Howe, Matthew Mead, David Clarkson, John Cotton, Philip Doddridge, John Newton, George
+  Whitefield, Samuel Hopkins and John Gill — public-domain ThML editions from the Christian Classics
+  Ethereal Library (https://ccel.org), converted by `tools/build-ccel-classic.py`.
+- 78 works by Thomas Brooks, Richard Sibbes, Thomas Goodwin, Jeremiah Burroughs, Joseph Alleine,
+  William Perkins, William Ames, Samuel Bolton, Isaac Ambrose, George Swinnock, Stephen Charnock,
+  Ralph Venning, John Flavel, James Janeway, Richard Baxter, John Preston, William Bridge, William
+  Gouge, Christopher Love, Thomas Watson, Samuel Rutherford, James Ussher, Thomas Shepard, Thomas
+  Hooker, William Gurnall, Walter Marshall and Thomas Doolittle — original 17th-century editions
+  transcribed by EEBO-TCP and released under CC0 (https://github.com/textcreationpartnership),
+  converted by `tools/build-tcp-classic.py`. The TCP id of each is shown in the reader.
+
+Puritan Library (puritanlibrary.com) was used only as a reading list: its links lead to
+Monergism's copyrighted e-book editions, which are not included.

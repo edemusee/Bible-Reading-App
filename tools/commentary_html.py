@@ -300,8 +300,9 @@ class _Converter(HTMLParser):
 
 
 def to_html(markup, source_type, book, chapter):
-    # html.parser treats <title> content as raw text, so rename it before parsing.
-    markup = re.sub(r'<(/?)title\b', r'<\1x-title', markup)
+    # html.parser treats <title> content as raw text, so rename it before parsing;
+    # in-text headings (<h2>, <h3>, ...) render the same way.
+    markup = re.sub(r'<(/?)(?:title|h[1-6])\b', r'<\1x-title', markup)
     markup = markup.replace('{Bogus footnote}', '')
     converter = _Converter(book, chapter)
     converter.feed(markup)

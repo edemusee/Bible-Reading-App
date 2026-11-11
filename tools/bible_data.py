@@ -80,3 +80,56 @@ def chapter_counts():
     raw = (ROOT / 'data' / 'en_kjv.txt').read_text()
     dataset = json.loads(gzip.decompress(base64.b64decode(raw)))
     return {book['id']: len(book['chapters']) for book in dataset['books']}
+
+
+def write_classic(work_id, title, author, units, limit=40000):
+    """Write data/classics/<id>.txt. Sections longer than `limit` characters are split at
+    paragraph boundaries into "(part n of m)" sections so each page stays readable."""
+    import re
+
+    def text_length(unit):
+        return len(re.sub(r'<[^>]+>|\s+', '', unit['html']))
+
+    # A heading-only section (a chapter title or one-line summary whose text sits in the
+    # sections below it) is folded into the next section instead of getting its own page.
+    merged = []
+    pending = ''
+    for unit in units:
+        if pending:
+            unit = {**unit, 'html': pending + '\n' + unit['html']}
+            pending = ''
+        if text_length(unit) < 120:
+            pending = unit['html'] if unit['html'].lstrip().startswith('<h4>') else f"<h4>{unit['title']}</h4>\n{unit['html']}"
+            continue
+        merged.append(unit)
+    if pending:
+        if merged:
+            merged[-1] = {**merged[-1], 'html': merged[-1]['html'] + '\n' + pending}
+        else:
+            merged.append({'title': title, 'path': [], 'html': pending})
+    units = merged
+
+    split = []
+    for unit in units:
+        html = unit['html']
+        if len(html) <= limit:
+            split.append(unit)
+            continue
+        blocks = re.split(r'\n(?=<(?:p|h4|blockquote|ul|table)\b)', html)
+        parts, current = [], ''
+        for block in blocks:
+            if current and len(current) + len(block) > limit:
+                parts.append(current)
+                current = ''
+            current = f'{current}\n{block}' if current else block
+        if current:
+            parts.append(current)
+        for index, part in enumerate(parts, 1):
+            label = f" (part {index} of {len(parts)})" if len(parts) > 1 else ''
+            split.append({**unit, 'title': unit['title'] + label, 'html': part})
+    data = {'id': work_id, 'title': title, 'author': author, 'units': split}
+    raw = json.dumps(data, ensure_ascii=False, separators=(',', ':')).encode('utf-8')
+    folder = ROOT / 'data' / 'classics'
+    folder.mkdir(parents=True, exist_ok=True)
+    (folder / f'{work_id}.txt').write_text(base64.b64encode(gzip.compress(raw, 9, mtime=0)).decode('ascii'))
+    return {'id': work_id, 'sections': len(split), 'chars': sum(len(unit['html']) for unit in split)}
