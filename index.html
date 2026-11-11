@@ -857,6 +857,10 @@
             <select id="commentarySelect"></select>
           </label>
           <p id="commentaryHelp" class="tiny hidden"></p>
+          <label id="commentaryOnlyToggle" class="toggle hidden">
+            <input type="checkbox" id="commentaryOnly">
+            <span>Show the commentary only</span>
+          </label>
         </section>
 
         <section class="section">
@@ -1046,6 +1050,7 @@ const COMMENTARIES = [{"id":"calvin","group":"Reformed & Puritan · Whole Bible"
       devotionalEntryId: '',
       fontSize: 18,
       commentaryId: '',
+      commentaryOnly: false,
       activeVerse: null
     };
 
@@ -1076,6 +1081,7 @@ const COMMENTARIES = [{"id":"calvin","group":"Reformed & Puritan · Whole Bible"
         devotionalEntryId: state.devotionalEntryId,
         fontSize: state.fontSize,
         commentaryId: state.commentaryId,
+        commentaryOnly: state.commentaryOnly,
         activeVerse: state.activeVerse
       };
       localStorage.setItem(STATE_KEY, JSON.stringify(snapshot));
@@ -1327,6 +1333,8 @@ const COMMENTARIES = [{"id":"calvin","group":"Reformed & Puritan · Whole Bible"
       refs.secondaryVersion = document.getElementById('secondaryVersion');
       refs.commentarySelect = document.getElementById('commentarySelect');
       refs.commentaryHelp = document.getElementById('commentaryHelp');
+      refs.commentaryOnly = document.getElementById('commentaryOnly');
+      refs.commentaryOnlyToggle = document.getElementById('commentaryOnlyToggle');
       refs.bookSelect = document.getElementById('bookSelect');
       refs.chapterSelect = document.getElementById('chapterSelect');
       refs.verseSelect = document.getElementById('verseSelect');
@@ -1441,6 +1449,8 @@ const COMMENTARIES = [{"id":"calvin","group":"Reformed & Puritan · Whole Bible"
         state.commentaryId = refs.commentarySelect.value;
         render();
       });
+
+      refs.commentaryOnly.addEventListener('change', () => setCommentaryOnly(refs.commentaryOnly.checked));
 
       refs.readerGrid.addEventListener('click', handleCommentaryClick);
 
@@ -2576,6 +2586,8 @@ const COMMENTARIES = [{"id":"calvin","group":"Reformed & Puritan · Whole Bible"
       const commentary = commentaryInfo[state.commentaryId];
       refs.commentaryHelp.textContent = commentary ? `${commentary.author} · ${describeCoverage(commentary.bookIds)}` : '';
       setHidden(refs.commentaryHelp, !commentary);
+      setHidden(refs.commentaryOnlyToggle, !commentary);
+      refs.commentaryOnly.checked = Boolean(state.commentaryOnly);
     }
 
     async function ensureCommentaryLoaded(commentaryId, bookId) {
@@ -2616,6 +2628,12 @@ const COMMENTARIES = [{"id":"calvin","group":"Reformed & Puritan · Whole Bible"
           <p class="tiny">${escapeHtml(commentary.author)}</p>
         </div>
       `;
+      const layout = document.createElement('button');
+      layout.type = 'button';
+      layout.className = 'link-button';
+      layout.textContent = state.commentaryOnly ? 'Show Bible text' : 'Commentary only';
+      layout.addEventListener('click', () => setCommentaryOnly(!state.commentaryOnly));
+      header.appendChild(layout);
       pane.appendChild(header);
 
       const body = document.createElement('div');
@@ -2691,7 +2709,15 @@ const COMMENTARIES = [{"id":"calvin","group":"Reformed & Puritan · Whole Bible"
       match.classList.add('active');
       if (body.scrollHeight > body.clientHeight + 4) {
         body.scrollTo({ top: match.offsetTop - 8, behavior: 'smooth' });
+      } else if (state.commentaryOnly) {
+        match.scrollIntoView({ block: 'start', behavior: 'smooth' });
       }
+    }
+
+    function setCommentaryOnly(enabled) {
+      state.commentaryOnly = enabled;
+      runtime.scrollToReader = true;
+      render();
     }
 
     function handleCommentaryClick(event) {
@@ -2883,6 +2909,9 @@ const COMMENTARIES = [{"id":"calvin","group":"Reformed & Puritan · Whole Bible"
     }
 
     async function renderBibleReader() {
+      // Loading data is async; if another render starts meanwhile, only the newest one draws.
+      const renderToken = (runtime.renderToken || 0) + 1;
+      runtime.renderToken = renderToken;
       renderBibleHeader();
       refs.readerGrid.classList.toggle('compare', state.compareEnabled);
 
@@ -2910,14 +2939,25 @@ const COMMENTARIES = [{"id":"calvin","group":"Reformed & Puritan · Whole Bible"
 
       const commentary = commentaryInfo[state.commentaryId] || null;
       const commentaryData = commentary ? await ensureCommentaryLoaded(commentary.id, state.bookId) : null;
+      if (renderToken !== runtime.renderToken) {
+        return;
+      }
+      refs.readerGrid.innerHTML = '';
 
-      refs.readerGrid.classList.toggle('with-commentary', Boolean(commentary));
-      refs.readerGrid.appendChild(renderPane(primaryVersion, primaryDataset, primaryIsGreek ? greekAux : null));
-      if (secondaryVersion) {
-        refs.readerGrid.appendChild(renderPane(secondaryVersion, secondaryDataset, secondaryIsGreek ? greekAux : null));
+      const commentaryOnly = Boolean(commentary && state.commentaryOnly);
+      refs.readerGrid.classList.toggle('with-commentary', Boolean(commentary) && !commentaryOnly);
+      refs.readerGrid.classList.toggle('compare', state.compareEnabled && !commentaryOnly);
+      if (!commentaryOnly) {
+        refs.readerGrid.appendChild(renderPane(primaryVersion, primaryDataset, primaryIsGreek ? greekAux : null));
+        if (secondaryVersion) {
+          refs.readerGrid.appendChild(renderPane(secondaryVersion, secondaryDataset, secondaryIsGreek ? greekAux : null));
+        }
       }
       if (commentary) {
         refs.readerGrid.appendChild(renderCommentaryPane(commentary, commentaryData));
+        if (state.activeVerse) {
+          syncCommentary(state.activeVerse);
+        }
       }
 
       renderWordStudy(primaryIsGreek, secondaryIsGreek);
@@ -2928,9 +2968,6 @@ const COMMENTARIES = [{"id":"calvin","group":"Reformed & Puritan · Whole Bible"
       requestAnimationFrame(() => {
         const active = document.querySelector('.verse.active');
         active?.scrollIntoView({ block: 'center', behavior: 'smooth' });
-        if (state.activeVerse) {
-          syncCommentary(state.activeVerse);
-        }
         if (runtime.scrollToReader) {
           runtime.scrollToReader = false;
           const top = refs.readerGrid.getBoundingClientRect().top;
