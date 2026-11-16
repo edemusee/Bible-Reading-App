@@ -1,0 +1,15 @@
+{
+  "name": "Bible Reader",
+  "short_name": "Bible Reader",
+  "description": "Bible versions, commentaries, classic writings, creeds and daily devotionals, saved for offline reading as you open them.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f5eddc",
+  "theme_color": "#f5eddc",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
