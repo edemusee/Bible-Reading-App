@@ -1270,6 +1270,10 @@
               <span>Query</span>
               <input id="searchInput" type="search" placeholder="Search this version">
             </label>
+            <label id="searchScopeLabel">
+              <span>Search in</span>
+              <select id="searchScope"></select>
+            </label>
           </div>
           <div class="double">
             <button id="searchButton" class="primary" type="button">Search</button>
@@ -1461,7 +1465,8 @@ const COMMENTARIES = [{"id":"calvin","group":"Reformed & Puritan · Whole Bible"
       commentaryOnly: false,
       classicId: classicInfo['owen-mort'] ? 'owen-mort' : CLASSICS[0]?.id || '',
       classicUnitIndex: 0,
-      activeVerse: null
+      activeVerse: null,
+      searchScope: 'all'
     };
 
     let state = loadState();
@@ -1494,7 +1499,8 @@ const COMMENTARIES = [{"id":"calvin","group":"Reformed & Puritan · Whole Bible"
         commentaryOnly: state.commentaryOnly,
         classicId: state.classicId,
         classicUnitIndex: state.classicUnitIndex,
-        activeVerse: state.activeVerse
+        activeVerse: state.activeVerse,
+        searchScope: state.searchScope
       };
       try {
         localStorage.setItem(STATE_KEY, JSON.stringify(snapshot));
@@ -1639,6 +1645,10 @@ const COMMENTARIES = [{"id":"calvin","group":"Reformed & Puritan · Whole Bible"
       }
       state.classicUnitIndex = Math.max(0, Number(state.classicUnitIndex) || 0);
       state.fontSize = Math.min(34, Math.max(10, Number(state.fontSize) || 18));
+      // A single-book search scope only makes sense while the primary version contains that book.
+      if (!['all', 'ot', 'nt', 'current'].includes(state.searchScope) && !(versionInfo[state.primaryVersion]?.bookIds || []).includes(state.searchScope)) {
+        state.searchScope = 'all';
+      }
       if (state.libraryMode !== 'bible') {
         state.compareEnabled = false;
       }
@@ -1790,6 +1800,8 @@ const COMMENTARIES = [{"id":"calvin","group":"Reformed & Puritan · Whole Bible"
       refs.fontSizeValue = document.getElementById('fontSizeValue');
       refs.searchHelp = document.getElementById('searchHelp');
       refs.searchInput = document.getElementById('searchInput');
+      refs.searchScope = document.getElementById('searchScope');
+      refs.searchScopeLabel = document.getElementById('searchScopeLabel');
       refs.searchButton = document.getElementById('searchButton');
       refs.clearSearchButton = document.getElementById('clearSearchButton');
       refs.searchResults = document.getElementById('searchResults');
@@ -2066,6 +2078,14 @@ const COMMENTARIES = [{"id":"calvin","group":"Reformed & Puritan · Whole Bible"
         clearSearchState();
       });
 
+      refs.searchScope.addEventListener('change', () => {
+        state.searchScope = refs.searchScope.value;
+        saveState();
+        if (refs.searchInput.value.trim()) {
+          runSearch();
+        }
+      });
+
       refs.searchInput.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
           runSearch();
@@ -2204,8 +2224,10 @@ const COMMENTARIES = [{"id":"calvin","group":"Reformed & Puritan · Whole Bible"
       refs.fontSize.value = String(state.fontSize);
       refs.fontSizeValue.textContent = String(state.fontSize);
 
+      setHidden(refs.searchScopeLabel, !bibleMode);
+      renderSearchScope();
       if (bibleMode) {
-        refs.searchHelp.textContent = 'Searches the currently selected primary version.';
+        refs.searchHelp.textContent = 'Searches the currently selected primary version. Narrow it to a testament or a single book below.';
         refs.searchInput.placeholder = 'Search this version';
       } else if (classicMode) {
         refs.searchHelp.textContent = 'Searches the work you are reading.';
@@ -2760,6 +2782,80 @@ const COMMENTARIES = [{"id":"calvin","group":"Reformed & Puritan · Whole Bible"
     }
 
     const SEARCH_PAGE = 100;
+    const FIRST_NT_BOOK = bookOrder.indexOf('matt');
+
+    function isNewTestament(bookId) {
+      return bookOrder.indexOf(bookId) >= FIRST_NT_BOOK;
+    }
+
+    // Which books a Bible search covers: everything, one testament, the book being read, or one chosen book.
+    function searchScopeBookIds() {
+      const available = bookOrder.filter((bookId) => (versionInfo[state.primaryVersion]?.bookIds || []).includes(bookId));
+      const scope = state.searchScope;
+      if (scope === 'ot') {
+        return available.filter((bookId) => !isNewTestament(bookId));
+      }
+      if (scope === 'nt') {
+        return available.filter(isNewTestament);
+      }
+      if (scope === 'current') {
+        return available.filter((bookId) => bookId === state.bookId);
+      }
+      if (scope && scope !== 'all') {
+        return available.filter((bookId) => bookId === scope);
+      }
+      return available;
+    }
+
+    function searchScopeLabel() {
+      const scope = state.searchScope;
+      if (scope === 'ot') {
+        return 'the Old Testament';
+      }
+      if (scope === 'nt') {
+        return 'the New Testament';
+      }
+      if (scope === 'current') {
+        return bookLookup[state.bookId]?.label || state.bookId;
+      }
+      return scope && scope !== 'all' ? bookLookup[scope]?.label || scope : '';
+    }
+
+    function renderSearchScope() {
+      const select = refs.searchScope;
+      const available = bookOrder.filter((bookId) => (versionInfo[state.primaryVersion]?.bookIds || []).includes(bookId));
+      const oldTestament = available.filter((bookId) => !isNewTestament(bookId));
+      const newTestament = available.filter(isNewTestament);
+      select.innerHTML = '';
+      const addOption = (parent, value, label) => {
+        const option = document.createElement('option');
+        option.value = value;
+        option.textContent = label;
+        parent.appendChild(option);
+      };
+      addOption(select, 'all', 'Whole Bible');
+      if (oldTestament.length && newTestament.length) {
+        addOption(select, 'ot', 'Old Testament');
+        addOption(select, 'nt', 'New Testament');
+      }
+      if (available.includes(state.bookId)) {
+        addOption(select, 'current', `This book (${bookLookup[state.bookId]?.label || state.bookId})`);
+      }
+      [['Old Testament books', oldTestament], ['New Testament books', newTestament]].forEach(([label, bookIds]) => {
+        if (!bookIds.length) {
+          return;
+        }
+        const group = document.createElement('optgroup');
+        group.label = label;
+        bookIds.forEach((bookId) => addOption(group, bookId, bookLookup[bookId]?.label || bookId));
+        select.appendChild(group);
+      });
+      // A testament the version does not have (for example a New Testament only text) falls back to everything.
+      if (![...select.options].some((option) => option.value === state.searchScope)) {
+        state.searchScope = 'all';
+      }
+      select.value = state.searchScope;
+    }
 
     function openSearchResult(result) {
       closeSheet();
@@ -2847,8 +2943,13 @@ const COMMENTARIES = [{"id":"calvin","group":"Reformed & Puritan · Whole Bible"
         if (state.libraryMode === 'bible') {
           // Search every book: the whole version is already in memory, so there is no reason to stop early.
           const dataset = await ensureVersionLoaded(state.primaryVersion);
-          scope = versionInfo[state.primaryVersion]?.name || state.primaryVersion;
+          const versionName = versionInfo[state.primaryVersion]?.name || state.primaryVersion;
+          const scopeBooks = new Set(searchScopeBookIds());
+          scope = searchScopeLabel() ? `${searchScopeLabel()} · ${versionName}` : versionName;
           for (const book of dataset.books || []) {
+            if (!scopeBooks.has(book.id)) {
+              continue;
+            }
             book.chapters.forEach((chapter, chapterIndex) => {
               chapter.forEach((verseText, verseIndex) => {
                 const verse = String(verseText || '');
